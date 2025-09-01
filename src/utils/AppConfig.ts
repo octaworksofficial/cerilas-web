@@ -3,7 +3,11 @@ import { BILLING_INTERVAL, type PricingPlan } from '@/types/Subscription';
 // FIXME: Update this configuration file based on your project information
 export const AppConfig = {
   name: 'SaaS Template',
+  defaultLocale: 'en',
+  localePrefix: 'never' as const,
 };
+
+export const AllLocales = ['en'] as const;
 
 export const PLAN_ID = {
   FREE: 'free',

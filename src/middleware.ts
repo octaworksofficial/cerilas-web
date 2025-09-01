@@ -5,8 +5,6 @@ import {
   NextResponse,
 } from 'next/server';
 
-import { AppConfig } from './utils/AppConfig';
-
 const isProtectedRoute = createRouteMatcher([
   '/dashboard(.*)',
   '/onboarding(.*)',

@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
-import prisma from '@/libs/prisma';
+import { NextResponse } from 'next/server';
 import * as xlsx from 'xlsx';
 
-export async function GET(request: NextRequest) {
+import prisma from '@/libs/prisma';
+
+export async function GET() {
   try {
     // Get all newsletter subscribers
     const subscribers = await prisma.newsletterSubscription.findMany({
@@ -14,17 +15,17 @@ export async function GET(request: NextRequest) {
     // Convert data to Excel format
     const worksheet = xlsx.utils.json_to_sheet(
       subscribers.map(sub => ({
-        ID: sub.id,
-        Email: sub.email,
-        Name: sub.name || '',
-        Status: sub.status,
+        'ID': sub.id,
+        'Email': sub.email,
+        'Name': sub.name || '',
+        'Status': sub.status,
         'Date Subscribed': sub.createdAt ? new Date(sub.createdAt).toLocaleString() : '',
-      }))
+      })),
     );
 
     // Set column widths
     const columnWidths = [
-      { wch: 5 },  // ID
+      { wch: 5 }, // ID
       { wch: 35 }, // Email
       { wch: 20 }, // Name
       { wch: 10 }, // Status
@@ -38,7 +39,7 @@ export async function GET(request: NextRequest) {
 
     // Generate buffer
     const excelBuffer = xlsx.write(workbook, { bookType: 'xlsx', type: 'buffer' });
-    
+
     // Return as downloadable file
     return new NextResponse(excelBuffer, {
       headers: {
@@ -50,7 +51,7 @@ export async function GET(request: NextRequest) {
     console.error('Error exporting subscribers:', error);
     return NextResponse.json(
       { error: 'Failed to export subscribers' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
