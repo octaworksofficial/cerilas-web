@@ -3,6 +3,11 @@
 # Railway deployment script for Prisma database setup
 echo "🚀 Starting Railway deployment..."
 
+# Clear any potential cache issues
+echo "🧹 Clearing cache..."
+rm -rf .next || true
+rm -rf node_modules/.cache || true
+
 # Generate Prisma client
 echo "📦 Generating Prisma client..."
 npx prisma generate

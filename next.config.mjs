@@ -16,4 +16,16 @@ export default {
   experimental: {
     serverComponentsExternalPackages: ['@electric-sql/pglite'],
   },
+  webpack: (config, { dev, isServer }) => {
+    // Fix for CSS parsing issues in production
+    if (!dev && !isServer) {
+      config.optimization.splitChunks.cacheGroups.styles = {
+        name: 'styles',
+        test: /\.(css|scss)$/,
+        chunks: 'all',
+        enforce: true,
+      };
+    }
+    return config;
+  },
 };
