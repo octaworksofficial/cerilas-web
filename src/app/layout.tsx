@@ -1,4 +1,4 @@
-import '@/styles/global.css';
+import '@/styles/compiled.css';
 
 import type { Metadata } from 'next';
 
