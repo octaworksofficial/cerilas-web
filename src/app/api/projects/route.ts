@@ -19,7 +19,6 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     const project = await prisma.project.create({ data });
     return NextResponse.json(project, { status: 201 });
-    return NextResponse.json(project, { status: 201 });
   } catch {
     return NextResponse.json({ error: 'Failed to create project' }, { status: 500 });
   }
