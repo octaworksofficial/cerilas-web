@@ -13,6 +13,10 @@ rm -rf .cache || true
 echo "📦 Installing dependencies..."
 npm ci --force
 
+# Generate static CSS file
+echo "🎨 Generating static CSS..."
+npx tailwindcss -i ./src/styles/global.css -o ./public/styles.css --minify
+
 # Generate Prisma client
 echo "📦 Generating Prisma client..."
 npx prisma generate

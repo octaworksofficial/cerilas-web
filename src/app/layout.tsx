@@ -1,5 +1,3 @@
-import '@/styles/global.css';
-
 import type { Metadata } from 'next';
 
 import { DemoBadge } from '@/components/DemoBadge';
@@ -40,6 +38,9 @@ export default function RootLayout(props: {
   // which dynamically adds a `style` attribute to the body tag.
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="stylesheet" href="/styles.css" />
+      </head>
       <body className="bg-background text-foreground antialiased" suppressHydrationWarning>
         <GoogleAnalytics />
 
