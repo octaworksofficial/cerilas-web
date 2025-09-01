@@ -24,9 +24,10 @@
     "serve-storybook": "run-s storybook:*",
     "test-storybook:ci": "start-server-and-test serve-storybook http://127.0.0.1:6006 test-storybook",
     "prepare": "husky",
-    "postinstall": "prisma generate && prisma db push",
+    "postinstall": "bash .railway/deploy.sh || (prisma generate && prisma db push)",
     "prisma:generate": "prisma generate",
-    "prisma:deploy": "prisma db push"
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:baseline": "prisma migrate resolve --applied 20250831140455_init"
   },
   "dependencies": {
     "@clerk/localizations": "^3.14.2",
