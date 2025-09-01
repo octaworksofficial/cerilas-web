@@ -1,10 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 import prisma from '@/libs/prisma';
-import dynamic from 'next/dynamic';
+import dynamicImport from 'next/dynamic';
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 // AnimationController bileşenini client-side olarak dinamik import ediyoruz
-const AnimationController = dynamic(() => import('@/components/AnimationController'), {
+const AnimationController = dynamicImport(() => import('@/components/AnimationController'), {
   ssr: false,
   loading: () => null,
 });
@@ -66,17 +70,27 @@ async function getStatistics() {
 }
 
 export default async function LandingPage() {
-  // Get latest 3 projects for preview
-  const featuredProjects: Project[] = await prisma.project.findMany({ 
-    orderBy: { createdAt: 'desc' },
-    take: 3
-  });
+  // Get latest 3 projects for preview with error handling
+  let featuredProjects: Project[] = [];
+  try {
+    featuredProjects = await prisma.project.findMany({ 
+      orderBy: { createdAt: 'desc' },
+      take: 3
+    });
+  } catch (error) {
+    console.error('Error fetching featured projects:', error);
+  }
 
-  // Get active partners
-  const partners: Partner[] = await prisma.partner.findMany({
-    where: { isActive: true },
-    orderBy: { sortOrder: 'asc' }
-  });
+  // Get active partners with error handling
+  let partners: Partner[] = [];
+  try {
+    partners = await prisma.partner.findMany({
+      where: { isActive: true },
+      orderBy: { sortOrder: 'asc' }
+    });
+  } catch (error) {
+    console.error('Error fetching partners:', error);
+  }
 
   // Get statistics from API
   const stats = await getStatistics();

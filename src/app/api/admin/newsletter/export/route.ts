@@ -3,6 +3,10 @@ import * as xlsx from 'xlsx';
 
 import prisma from '@/libs/prisma';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET() {
   try {
     // Get all newsletter subscribers

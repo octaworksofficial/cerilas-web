@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/libs/prisma';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export async function GET() {
   try {
@@ -21,7 +22,7 @@ export async function GET() {
         
         // Otherwise, extract numeric value (remove currency symbols, commas, etc.)
         const numericBudget = parseFloat(budgetValue.replace(/[^\d.,]/g, '').replace(/,/g, ''));
-        return sum + (isNaN(numericBudget) ? 0 : numericBudget);
+        return sum + (Number.isNaN(numericBudget) ? 0 : numericBudget);
       }
       return sum;
     }, 0);
