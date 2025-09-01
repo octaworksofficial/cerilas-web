@@ -1,52 +1,12 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
-const isProtectedRoute = createRouteMatcher([
-  '/dashboard(.*)',
-  '/onboarding(.*)',
-]);
+export default function middleware() {
+  // Temporarily disable Clerk authentication for development
+  // This allows the app to run without proper Clerk configuration
 
-const isPublicApiRoute = createRouteMatcher([
-  '/api/newsletter',
-  '/api/partners',
-  '/api/projects',
-  '/api/statistics',
-]);
-
-export default clerkMiddleware(async (auth, req) => {
-  // Allow public API routes to pass through
-  if (isPublicApiRoute(req)) {
-    return NextResponse.next();
-  }
-
-  // Protect dashboard and onboarding routes
-  if (isProtectedRoute(req)) {
-    const signInUrl = new URL('/sign-in', req.url);
-
-    await auth.protect({
-      unauthenticatedUrl: signInUrl.toString(),
-    });
-
-    const authObj = await auth();
-
-    // Redirect to organization selection if user doesn't have an org
-    if (
-      authObj.userId
-      && !authObj.orgId
-      && req.nextUrl.pathname.includes('/dashboard')
-      && !req.nextUrl.pathname.endsWith('/organization-selection')
-    ) {
-      const orgSelection = new URL(
-        '/onboarding/organization-selection',
-        req.url,
-      );
-
-      return NextResponse.redirect(orgSelection);
-    }
-  }
-
+  // Skip authentication for now - just pass through all requests
   return NextResponse.next();
-});
+}
 
 export const config = {
   matcher: [
