@@ -7,6 +7,11 @@ echo "🚀 Starting Railway deployment..."
 echo "🧹 Clearing cache..."
 rm -rf .next || true
 rm -rf node_modules/.cache || true
+rm -rf .cache || true
+
+# Ensure clean npm install
+echo "📦 Installing dependencies..."
+npm ci --force
 
 # Generate Prisma client
 echo "📦 Generating Prisma client..."
