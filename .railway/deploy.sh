@@ -8,10 +8,6 @@ echo "🧹 Clearing cache..."
 rm -rf .next || true
 rm -rf node_modules/.cache || true
 
-# Compile Tailwind CSS first
-echo "🎨 Compiling Tailwind CSS..."
-npx tailwindcss -i ./src/styles/global.css -o ./src/styles/compiled.css --minify
-
 # Generate Prisma client
 echo "📦 Generating Prisma client..."
 npx prisma generate

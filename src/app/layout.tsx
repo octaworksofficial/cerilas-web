@@ -1,4 +1,4 @@
-import '@/styles/compiled.css';
+import '@/styles/global.css';
 
 import type { Metadata } from 'next';
 
@@ -41,13 +41,13 @@ export default function RootLayout(props: {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-background text-foreground antialiased" suppressHydrationWarning>
-          <GoogleAnalytics />
-          
-          {props.children}
+        <GoogleAnalytics />
 
-          <DemoBadge />
-          {/* İkinci children kaldırıldı */}
-          {/* <DemoBadge /> */}
+        {props.children}
+
+        <DemoBadge />
+        {/* İkinci children kaldırıldı */}
+        {/* <DemoBadge /> */}
       </body>
     </html>
   );
