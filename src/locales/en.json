@@ -1,0 +1,22 @@
+{
+  "Index": {
+    "meta_title": "Cerilas - Dream, Design, Disrupt - Innovation Beyond Limits",
+    "meta_description": "At Cerilas, we delve into advanced AI research, harnessing machine learning and deep learning to develop intelligent systems that solve complex real-world problems."
+  },
+  "Navbar": {
+    "sign_in": "Sign In",
+    "sign_up": "Sign Up",
+    "product": "Product",
+    "docs": "Docs",
+    "blog": "Blog",
+    "community": "Community",
+    "company": "Company"
+  },
+  "Hero": {
+    "follow_twitter": "Follow on Twitter",
+    "title": "<important>Dream, Design,</important> Disrupt",
+    "description": "At Cerilas, we delve into advanced AI research, harnessing machine learning and deep learning to develop intelligent systems that solve complex real-world problems and drive business innovation.",
+    "primary_button": "Explore Projects",
+    "secondary_button": "Get in Touch"
+  }
+}

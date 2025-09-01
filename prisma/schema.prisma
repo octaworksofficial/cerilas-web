@@ -1,0 +1,55 @@
+// Prisma schema for Cerilas projects
+// Default: SQLite (can be changed to PostgreSQL if needed)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id          Int      @id @default(autoincrement())
+  slug        String   @unique
+  title       String
+  subtitle    String?
+  description String?
+  overview    String?
+  applications String?
+  usp         String?
+  technology  String?
+  sustainability String?
+  researchTopics String?
+  date        String?
+  grants      String?
+  universities String?
+  staff       String?
+  partners    String?
+  budget      String?
+  status      String   @default("Not Started")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Partner {
+  id          Int      @id @default(autoincrement())
+  name        String
+  logoUrl     String
+  website     String?
+  description String?
+  category    String?  // e.g., "University", "Industry", "Government", "Research Institute"
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model NewsletterSubscription {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  status    String   @default("active")
+  createdAt DateTime @default(now())
+}
