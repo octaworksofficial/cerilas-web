@@ -1,7 +1,12 @@
 #!/bin/bash
+set -e  # Exit on any error
 
 # Railway deployment script for Prisma database setup
 echo "🚀 Starting Railway deployment..."
+
+# Print Node.js version for debugging
+echo "📋 Node.js version: $(node --version)"
+echo "📋 npm version: $(npm --version)"
 
 # Clear any potential cache issues
 echo "🧹 Clearing cache..."
@@ -11,15 +16,24 @@ rm -rf .cache || true
 
 # Ensure clean npm install
 echo "📦 Installing dependencies..."
-npm ci --force
+npm ci --force --silent
 
 # Generate static CSS file
 echo "🎨 Generating static CSS..."
-npx tailwindcss -i ./src/styles/global.css -o ./public/styles.css --minify
+if npx tailwindcss -i ./src/styles/global.css -o ./public/styles.css --minify; then
+    echo "✅ CSS generated successfully!"
+else
+    echo "❌ CSS generation failed, but continuing..."
+fi
 
 # Generate Prisma client
 echo "📦 Generating Prisma client..."
-npx prisma generate
+if npx prisma generate; then
+    echo "✅ Prisma client generated successfully!"
+else
+    echo "❌ Prisma client generation failed!"
+    exit 1
+fi
 
 # Check if database has tables but no migration history
 echo "🔍 Checking database state..."

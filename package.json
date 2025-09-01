@@ -1,12 +1,17 @@
 {
   "name": "saas-boilerplate",
   "version": "1.7.6",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "dev:spotlight": "spotlight-sidecar",
     "dev:next": "next dev",
     "dev": "run-p dev:*",
     "build:css": "tailwindcss -i ./src/styles/global.css -o ./public/styles.css --minify",
     "build": "npm run build:css && next build",
+    "build:railway": "npx tailwindcss -i ./src/styles/global.css -o ./public/styles.css --minify && npx next build",
     "start": "next start",
     "build-stats": "cross-env ANALYZE=true npm run build",
     "clean": "rimraf .next out coverage",
